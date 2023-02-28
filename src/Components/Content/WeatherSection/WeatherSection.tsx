@@ -1,39 +1,41 @@
-import { useEffect, useState } from "react"
-interface IInfos {
-    temp_max: number;
-    temp_min: number;
-    dt_txt: string;
-    icon: string;
-}
+import { useEffect, useState, useContext } from "react"
+import { setWeatherDaysAction } from "../../Store/daysWeather/action"
+import store from "../../Store"
+import { StorageContext } from "../../../Context/StorageContext"
 
 const WeatherSection = () => {
+    const { newPlace } = useContext(StorageContext)
+    const { weatherDays } = store.getState()
     const [lat, setLat] = useState(0)
     const [lon, setLon] = useState(0)
-    const [infos, setInfos] = useState<IInfos[] | []>([])
 
     const getInfos = async () => {
-        const Infos = await fetch('http://api.openweathermap.org/geo/1.0/direct?q=São_Paulo&limit=5&appid=' + process.env.REACT_APP_ID)
+        const Infos = await fetch('http://api.openweathermap.org/geo/1.0/direct?q=' + newPlace + '&limit=5&appid=febfe56ed42722d4c8aed44ff8d064a3')
             .then(res => res.json())
+            console.log(Infos)
         setLat(Infos[0].lat)
         setLon(Infos[0].lon)
     }
 
     const getWeather = async () => {
-        const Weather = await fetch('http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + process.env.REACT_APP_ID + '&units=metric&lang=pt')
+        const Weather = await fetch('http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=febfe56ed42722d4c8aed44ff8d064a3&units=metric&lang=pt')
             .then(res => res.json())
-        let index: number = 3
+        let index: number = 0
         let array = []
         while (index < 40) {
             let newInfos = {
+                latitude: lat,
+                longitude: lon,
                 temp_max: Weather.list[index].main.temp_max,
                 temp_min: Weather.list[index].main.temp_min,
                 dt_txt: Weather.list[index].dt_txt,
                 icon: "http://openweathermap.org/img/w/" + Weather.list[index].weather[0].icon + ".png"
             }
             array.push(newInfos)
-            index = index + 8
+            index = index + 4
         }
-        setInfos(array)
+        store.dispatch(setWeatherDaysAction(array))
+        console.log(weatherDays)
     }
 
     useEffect(() => {
@@ -42,15 +44,15 @@ const WeatherSection = () => {
 
     useEffect(() => {
         getWeather()
-    }, [getInfos()])
+    }, [])
 
     return (
         <>
             <div className="weatherSection">
                 <h3>Próximos Dias </h3>
-                {infos.map(weather => {
+                {weatherDays.weathers.map((weather: IInfos) => {
                     return (
-                        <div className="dayWeather">
+                        <div key={weather.dt_txt} className="dayWeather">
                             <div className="day">
                                 <span>{weather.dt_txt}</span>
                             </div>

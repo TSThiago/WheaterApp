@@ -1,8 +1,8 @@
 import './App.css'
 import axios from 'axios'
 import Header from './Components/Header/Header'
-import Location from './Components/Content/Place'
-import WeatherSection from './Components/Content/WeatherSection'
+import Location from './Components/Content/Place/Place'
+import WeatherSection from './Components/Content/WeatherSection/WeatherSection'
 
 
 function App() {
