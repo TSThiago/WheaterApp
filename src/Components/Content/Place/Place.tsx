@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react"
-import { StorageContext } from "../../../Context/StorageContext"
+import { StorageContext } from "../../../context/StorageContext"
 
 const Location: React.FC = (props) => {
     const { newPlace } = useContext(StorageContext)
 
     return (
         <>
-            <div className="placeName">
+            <section className="placeName">
                 <h2>{newPlace}</h2>
-            </div>
+            </section>
         </>
     )
 }

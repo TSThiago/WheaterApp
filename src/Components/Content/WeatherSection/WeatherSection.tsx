@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { StorageContext } from "../../../Context/StorageContext"
+import { StorageContext } from "../../../context/StorageContext"
 import getWeatherInfos from "../../../services/getWeatherInfos"
 import getPlaceInfos from "../../../services/getPlaceInfos"
 
@@ -11,13 +11,19 @@ const WeatherSection = () => {
             .then(function (placeInfos) {
                 return getWeatherInfos(placeInfos.lat, placeInfos.lon)
             }).then(function (weatherInfos) {
-                setWeatherDays(weatherInfos)
+                let weathers: IWeather[] = []
+                let index: number = 0
+                while (index < 40) {
+                    weathers.push(weatherInfos[index])
+                    index = index + 4
+                }
+                setWeatherDays(weathers)
             })
     }, [newPlace])
 
     return (
         <>
-            <div className="weatherSection">
+            <section className="weatherSection">
                 <h3>Próximos Dias </h3>
                 {weatherDays.map((weather: IWeather) => {
                     return (
@@ -35,8 +41,8 @@ const WeatherSection = () => {
                         </div>
                     )
                 })}
-
-            </div>
+                <button >Modal</button>
+            </section>
         </>
     )
 }

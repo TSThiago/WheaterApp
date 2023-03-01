@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import weatherIMG from '../../assets/weather-forecast.png'
-import { StorageContext } from '../../Context/StorageContext';
+import { StorageContext } from '../../context/StorageContext';
 
 const Header = () => {
     const { setNewPlace, setWeatherDays } = useContext(StorageContext)
@@ -18,7 +18,7 @@ const Header = () => {
 
     return (
         <>
-            <div className="header">
+            <header>
                 <div className="icon">
                     <img src={weatherIMG} alt="Imagem do ícone de clima" />
                 </div>
@@ -26,7 +26,7 @@ const Header = () => {
                     <input type="text" onChange={handlePlace} value={place} />
                     <button onClick={handleNewPlace}>Procurar</button>
                 </div>
-            </div>
+            </header>
         </>
     )
 };
