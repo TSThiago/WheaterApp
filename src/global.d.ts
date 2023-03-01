@@ -1,7 +1,9 @@
-interface ILocation {
-    children: string
+interface iPlace {
+    name: string;
+    lat: number;
+    lon: number;
 }
-interface IInfos {
+interface IWeather {
     temp_max: number;
     temp_min: number;
     dt_txt: string;

@@ -1,0 +1,1 @@
+export const ENV_API_ID = process.env.API_ID || 'febfe56ed42722d4c8aed44ff8d064a3'
