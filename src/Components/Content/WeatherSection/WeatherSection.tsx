@@ -1,10 +1,14 @@
 import { useEffect, useState, useContext } from "react"
-import { StorageContext } from "../../../context/StorageContext"
+import { StorageContext } from "../../../store/context/StorageContext"
 import getWeatherInfos from "../../../services/getWeatherInfos"
 import getPlaceInfos from "../../../services/getPlaceInfos"
+import Modal from "../../Modal/Modal"
+import moment from "moment"
+
 
 const WeatherSection = () => {
     let { weatherDays, setWeatherDays, newPlace } = useContext(StorageContext)
+    const [modal, setModal] = useState(false)
 
     useEffect(() => {
         getPlaceInfos(newPlace)
@@ -15,8 +19,12 @@ const WeatherSection = () => {
                 let index: number = 0
                 while (index < 40) {
                     weathers.push(weatherInfos[index])
-                    index = index + 4
+                    index = index + 8
                 }
+                // weatherInfos.forEach(weather => {
+
+                // })
+
                 setWeatherDays(weathers)
             })
     }, [newPlace])
@@ -27,9 +35,12 @@ const WeatherSection = () => {
                 <h3>Próximos Dias </h3>
                 {weatherDays.map((weather: IWeather) => {
                     return (
-                        <div key={weather.dt_txt} className="dayWeather">
+                        <div key={weather.date} className="dayWeather">
                             <div className="day">
-                                <span>{weather.dt_txt}</span>
+                                <button onClick={() => setModal(true)}>{weather.date}</button>
+                                <div>
+                                    {modal ? <Modal closeFunction={() => setModal(false)} array={weatherDays} /> : null}
+                                </div>
                             </div>
                             <div className="temperature">
                                 <span>{weather.temp_max.toFixed()}°</span>
@@ -41,7 +52,8 @@ const WeatherSection = () => {
                         </div>
                     )
                 })}
-                <button >Modal</button>
+
+
             </section>
         </>
     )

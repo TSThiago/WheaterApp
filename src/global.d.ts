@@ -6,7 +6,8 @@ interface iPlace {
 interface IWeather {
     temp_max: number;
     temp_min: number;
-    dt_txt: string;
+    date: string;
+    time: string;
     icon: string;
 }
 
@@ -15,3 +16,7 @@ interface iAction {
     payload: any
 }
 
+interface iModal {
+    array: IWeather[],
+    closeFunction: () => void
+}

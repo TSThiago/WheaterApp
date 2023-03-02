@@ -4,7 +4,7 @@ import App from './App'
 import './index.css'
 import { Provider } from 'react-redux'
 import store from './store'
-import { StorageProvider } from './context/StorageContext'
+import { StorageProvider } from './store/context/StorageContext'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
-import { StorageContext } from "../../../context/StorageContext"
+import { StorageContext } from "../../../store/context/StorageContext"
 
-const Location: React.FC = (props) => {
+const Location: React.FC = () => {
     const { newPlace } = useContext(StorageContext)
 
     return (

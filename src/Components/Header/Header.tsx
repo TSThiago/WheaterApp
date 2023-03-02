@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import weatherIMG from '../../assets/weather-forecast.png'
-import { StorageContext } from '../../context/StorageContext';
+import { StorageContext } from '../../store/context/StorageContext';
 
 const Header = () => {
     const { setNewPlace, setWeatherDays } = useContext(StorageContext)
