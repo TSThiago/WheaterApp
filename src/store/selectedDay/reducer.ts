@@ -1,5 +1,5 @@
 const DAY_INITIAL_VALUES = {
-    days : []
+    selectedDay : ''
 }
 
 const dayReducer = (state = DAY_INITIAL_VALUES, action: iAction) => {
@@ -7,7 +7,7 @@ const dayReducer = (state = DAY_INITIAL_VALUES, action: iAction) => {
         case "SET_SELECTED_DAY":
             return {
                 ...state,
-                days: action.payload
+                selectedDay: action.payload
             }
         default:
             return state;

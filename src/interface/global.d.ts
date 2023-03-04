@@ -4,6 +4,7 @@ interface iPlace {
     lon: number;
 }
 interface IWeather {
+    temp: number;
     temp_max: number;
     temp_min: number;
     date: string;
@@ -16,7 +17,8 @@ interface iAction {
     payload: any
 }
 
-interface iModal {
-    array: IWeather[],
-    closeFunction: () => void
+interface iState {
+    day : {
+        selectedDay : ''
+    }
 }
